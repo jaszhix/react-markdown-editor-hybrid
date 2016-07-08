@@ -14,7 +14,7 @@
     "prebuild": "npm run clean -s",
     "build": "npm run demo && babel --presets react,es2015 --optional runtime src -d dist",
     "demo": "rimraf demo.min.js && gulp demo",
-    "prepublish": "npm run build",
+    "prepublish": "npm run build -s",
     "deploy": "git pull --rebase origin master && git push origin master",
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
