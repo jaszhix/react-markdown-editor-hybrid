@@ -1,6 +1,6 @@
 {
   "name": "react-markdown-editor-hybrid",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A text editor component supporting Markdown and HTML using react-markdown.",
   "main": "dist/index.js",
   "files": [
