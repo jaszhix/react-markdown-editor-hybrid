@@ -13,7 +13,7 @@ var MDEditor = React.createClass({
   propTypes: {
     value: React.PropTypes.string.isRequired,
     enableHTML: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
+    onChange: React.PropTypes.func.isRequired,
     textAreaStyle: React.PropTypes.object,
     buttonStyle: React.PropTypes.object
   },
