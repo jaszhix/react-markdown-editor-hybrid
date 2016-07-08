@@ -22,11 +22,6 @@ var MDEditor = React.createClass({
       preview: false
     };
   },
-  componentWillReceiveProps(nP){
-    if (nP.imageImport !== this.props.imageImport) {
-      this.insertAtCursor(`![](${nP.imageImport}`, true, null, ')', nP.imageImport.length + 4);
-    }
-  },
   setCaretPosition(caretPos) {
     var textarea = this.refs.text;
     if (textarea !== null) {
