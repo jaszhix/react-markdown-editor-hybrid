@@ -7,7 +7,8 @@ var MDEditor = React.createClass({
     return {
       enableHTML: true,
       textAreaStyle: {},
-      buttonStyle: {}
+      buttonStyle: {},
+      buttonContainerStyle: {}
     };
   },
   propTypes: {
@@ -15,7 +16,8 @@ var MDEditor = React.createClass({
     enableHTML: React.PropTypes.bool,
     onChange: React.PropTypes.func.isRequired,
     textAreaStyle: React.PropTypes.object,
-    buttonStyle: React.PropTypes.object
+    buttonStyle: React.PropTypes.object,
+    buttonContainerStyle: React.PropTypes.object
   },
   getInitialState(){
     return {
@@ -111,9 +113,14 @@ var MDEditor = React.createClass({
       lineHeight: '1'
     };
     objectAssign(buttonStyle, p.buttonStyle);
+    const buttonContainerStyle = {
+      marginLeft: '-4px',
+      marginBottom: '4px'
+    };
+    objectAssign(buttonContainerStyle, p.buttonContainerStyle);
     return (
       <div>
-        <div style={{marginLeft: '-4px', marginBottom: '4px'}}>
+        <div style={buttonContainerStyle}>
           <button style={buttonStyle} onClick={()=>this.insertAtCursor('**', true)}><i className="fa fa-bold" /></button>
           <button style={buttonStyle} onClick={()=>this.insertAtCursor('_', true)}><i className="fa fa-italic" /></button>
           <button style={buttonStyle} onClick={()=>this.insertAtCursor('### ', false)}><i className="fa fa-header" /></button>

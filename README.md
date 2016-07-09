@@ -35,6 +35,13 @@ npm install --save react-markdown-editor-hybrid
 import MDEditor from 'react-markdown-editor-hybrid';
 ```
 
+### Features
+
+  * Bold, italics, header, ordered/unordered lists, code block, link, image, and YouTube buttons.
+  * Quote block HTML button.
+  * Clicking an editor button with no text selected will position the cursor where you can start typing with formatted Markdown.
+  * Preview mode rendered with [react-markdown](https://github.com/rexxars/react-markdown).
+
 ### Example Usage
 
 ```js
@@ -57,5 +64,6 @@ var Component = React.createClass({
   * ```value```: Provides state to the editor. Required.
   * ```onChange```: Fires when text input has changed. Required.
   * ```enableHTML```: Enables the blockquote button, and HTML rendering in the react-markdown preview. Default is ```true```. Optional.
-  * ```textAreaStyle```: Assigns styles properties to the text area. Optional.
+  * ```textAreaStyle```: Assigns style properties to the text area. Optional.
   * ```buttonStyle```: Assigns style properties to the button elements. Optional.
+  * ```buttonContainerStyle```: Assigns style properties to the buttons container. Optional.
