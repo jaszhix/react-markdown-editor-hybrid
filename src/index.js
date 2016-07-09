@@ -67,7 +67,6 @@ var MDEditor = React.createClass({
   },
   handleList(ordered){
     var list = this.getSelection(this.props.value).selection.split(/\r?\n/);
-    console.log(list);
     var newList = [];
     for (var i = 0; i < list.length; i++) {
       if (list[i].length > 0) {
@@ -79,7 +78,6 @@ var MDEditor = React.createClass({
   },
   handleYoutube(){
     var url = prompt('Enter a YouTube URL.');
-    console.log(url);
     var videoId = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
     if (videoId === null) {
       return;
