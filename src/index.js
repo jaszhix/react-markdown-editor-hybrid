@@ -51,7 +51,10 @@ var MDEditor = React.createClass({
       selection: selection
     };
   },
-  insertAtCursor(markdownLeftOrLR, right, _selection, markdownRight, cursorPosOffset) {
+  insertAtCursor(e, markdownLeftOrLR, right, _selection, markdownRight, cursorPosOffset) {
+    if (e) {
+      e.preventDefault();
+    }
     var value = this.props.value;
     var selectionProps = this.getSelection(value);
     var cursorIndexStart = selectionProps.cursorIndexStart;
@@ -67,7 +70,8 @@ var MDEditor = React.createClass({
       }, 0);
     }
   },
-  handleList(ordered){
+  handleList(e, ordered){
+    e.preventDefault();
     var list = this.getSelection(this.props.value).selection.split(/\r?\n/);
     var newList = [];
     for (var i = 0; i < list.length; i++) {
@@ -76,15 +80,20 @@ var MDEditor = React.createClass({
       }
     }
     newList = newList.join('\n');
-    this.insertAtCursor('', false, newList);
+    this.insertAtCursor(null, '', false, newList);
   },
-  handleYoutube(){
+  handleYoutube(e){
+    e.preventDefault();
     var url = prompt('Enter a YouTube URL.');
     var videoId = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
     if (videoId === null) {
       return;
     }
-    this.insertAtCursor(`[![](https://img.youtube.com/vi/${videoId[1]}/0.jpg)](https://www.youtube.com/watch?v=${videoId[1]}`, true, null, ')', 4);
+    this.insertAtCursor(null, `[![](https://img.youtube.com/vi/${videoId[1]}/0.jpg)](https://www.youtube.com/watch?v=${videoId[1]}`, true, null, ')', 4);
+  },
+  handleTogglePreview(e){
+    e.preventDefault();
+    this.setState({preview: !this.state.preview});
   },
   handleTextChange(e){
     this.props.onChange(e.target.value);
@@ -121,17 +130,17 @@ var MDEditor = React.createClass({
     return (
       <div>
         <div style={buttonContainerStyle}>
-          <button style={buttonStyle} onClick={()=>this.insertAtCursor('**', true)}><i className="fa fa-bold" /></button>
-          <button style={buttonStyle} onClick={()=>this.insertAtCursor('_', true)}><i className="fa fa-italic" /></button>
-          <button style={buttonStyle} onClick={()=>this.insertAtCursor('### ', false)}><i className="fa fa-header" /></button>
-          <button style={buttonStyle} onClick={()=>this.handleList(false)}><i className="fa fa-list" /></button>
-          <button style={buttonStyle} onClick={()=>this.handleList(true)}><i className="fa fa-list-ol" /></button>
-          {p.enableHTML ? <button style={buttonStyle} onClick={()=>this.insertAtCursor('<blockquote>', true, null, '</blockquote>', 12)}><i className="fa fa-quote-right" /></button> : null}
-          <button style={buttonStyle} onClick={()=>this.insertAtCursor('```', true, null, '```', 3)}><i className="fa fa-code" /></button>
-          <button style={buttonStyle} onClick={()=>this.insertAtCursor('[', true, null, ']()', 3)}><i className="fa fa-link" /></button>
-          <button style={buttonStyle} onClick={()=>this.insertAtCursor('![](', true, null, ')', 4)}><i className="fa fa-file-image-o" /></button>
+          <button style={buttonStyle} onClick={(e)=>this.insertAtCursor(e, '**', true)}><i className="fa fa-bold" /></button>
+          <button style={buttonStyle} onClick={(e)=>this.insertAtCursor(e, '_', true)}><i className="fa fa-italic" /></button>
+          <button style={buttonStyle} onClick={(e)=>this.insertAtCursor(e, '### ', false)}><i className="fa fa-header" /></button>
+          <button style={buttonStyle} onClick={(e)=>this.handleList(e, false)}><i className="fa fa-list" /></button>
+          <button style={buttonStyle} onClick={(e)=>this.handleList(e, true)}><i className="fa fa-list-ol" /></button>
+          {p.enableHTML ? <button style={buttonStyle} onClick={(e)=>this.insertAtCursor(e, '<blockquote>', true, null, '</blockquote>', 12)}><i className="fa fa-quote-right" /></button> : null}
+          <button style={buttonStyle} onClick={(e)=>this.insertAtCursor(e, '```', true, null, '```', 3)}><i className="fa fa-code" /></button>
+          <button style={buttonStyle} onClick={(e)=>this.insertAtCursor(e, '[', true, null, ']()', 3)}><i className="fa fa-link" /></button>
+          <button style={buttonStyle} onClick={(e)=>this.insertAtCursor(e, '![](', true, null, ')', 4)}><i className="fa fa-file-image-o" /></button>
           <button style={buttonStyle} onClick={this.handleYoutube}><i className="fa fa-youtube" /></button>
-          <button style={buttonStyle} onClick={()=>this.setState({preview: !this.state.preview})}><i className={`fa fa-${s.preview ? 'pencil' : 'eye'}`} /><span style={{marginLeft: '6px'}}>{s.preview ? 'Editor' : 'Preview'}</span></button>
+          <button style={buttonStyle} onClick={this.handleTogglePreview}><i className={`fa fa-${s.preview ? 'pencil' : 'eye'}`} /><span style={{marginLeft: '6px'}}>{s.preview ? 'Editor' : 'Preview'}</span></button>
         </div>
         <div>
           {s.preview ?
