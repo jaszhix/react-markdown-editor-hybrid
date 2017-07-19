@@ -37,14 +37,14 @@ module.exports = {
   module: {
     loaders: [
       // we pass the output from babel loader to react-hot loader
-      { 
-        test: /\.(js|jsx)$/, 
-        exclude: /node_modules/, 
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
         loaders: [
           'babel-loader?presets[]=es2015&presets[]=stage-0'
         ],
       },
-      { 
+      {
         test: /\.(json)$/,
         loaders: [
           'json'
